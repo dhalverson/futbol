@@ -33,4 +33,20 @@ class TeamStatsTest < Minitest::Test
     assert_instance_of TeamCollection, @team_stats.teams_collection
     assert_instance_of GameTeamCollection, @team_stats.game_teams_collection
   end
+
+  def test_it_has_team_info
+    assert_instance_of Hash, @team_stats.team_info("1")
+  end
+
+  def test_returns_all_games_by_team_id
+    assert_instance_of Array, @team_stats.all_games("1")
+  end
+
+  def test_returns_all_games_by_team_per_season
+    assert_instance_of Array, @team_stats.all_games("1")
+  end
+
+  def test_it_has_best_season
+    assert_equal "", @team_stats.best_season("1")
+  end
 end
