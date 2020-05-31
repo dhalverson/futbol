@@ -4,7 +4,6 @@ class Team
               :franchiseid,
               :teamname,
               :abbreviation,
-              :stadium,
               :link
 
   def initialize(team_params)
@@ -12,7 +11,6 @@ class Team
     @franchiseid = team_params[:franchiseid]
     @teamname = team_params[:teamname]
     @abbreviation = team_params[:abbreviation]
-    @stadium = team_params[:stadium]
     @link = team_params[:link]
   end
 end
