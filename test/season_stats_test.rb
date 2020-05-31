@@ -75,19 +75,21 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_can_get_winningest_coach
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20122013")
+    assert_equal "Lindy Ruff", @season_stats.winningest_coach("20122013")
     assert_equal "Claude Noel", @season_stats.winningest_coach("20132014")
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20142015")
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20152016")
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20162017")
+    assert_equal "Paul Maurice", @season_stats.winningest_coach("20142015")
+    assert_equal "Bill Peters", @season_stats.winningest_coach("20152016")
+    assert_equal "Joel Quenneville", @season_stats.winningest_coach("20162017")
+    assert_equal "Rick Tocchet", @season_stats.winningest_coach("20172018")
   end
 
   def test_it_can_get_worst_coach
-    assert_equal "Mike Babcock", @season_stats.worst_coach("20122013")
-    assert_equal "Claude Noel", @season_stats.worst_coach("20132014")
-    assert_equal "Claude Noel", @season_stats.worst_coach("20142015")
-    assert_equal "Claude Noel", @season_stats.worst_coach("20152016")
-    assert_equal "Claude Noel", @season_stats.worst_coach("20162017")
+    assert_equal "Todd Richards", @season_stats.worst_coach("20122013")
+    assert_equal "Mike Babcock", @season_stats.worst_coach("20132014")
+    assert_equal "Gerard Gallant", @season_stats.worst_coach("20142015")
+    assert_equal "Peter Laviolette", @season_stats.worst_coach("20152016")
+    assert_equal "Bill Peters", @season_stats.worst_coach("20162017")
+    assert_equal "Bill Peters", @season_stats.worst_coach("20172018")
   end
 
   def test_accuracy_by_game_team
@@ -116,21 +118,20 @@ class SeasonStatsTest < Minitest::Test
   end
 
   def test_it_can_get_team_with_most_tackles
-    assert_equal "FC Dallas", @season_stats.most_tackles("20122013")
-    assert_equal "San Jose Earthquakes", @season_stats.most_tackles("20132014")
-    assert_equal "Real Salt Lake", @season_stats.most_tackles("20142015")
-    assert_equal "Orlando Pride", @season_stats.most_tackles("20152016")
-    assert_equal "New York City FC", @season_stats.most_tackles("20162017")
-    assert_equal "Reign FC", @season_stats.most_tackles("20172018")
+    assert_equal "North Carolina Courage", @season_stats.most_tackles("20122013")
+    assert_equal "Real Salt Lake", @season_stats.most_tackles("20132014")
+    assert_equal "Orlando Pride", @season_stats.most_tackles("20142015")
+    assert_equal "Los Angeles FC", @season_stats.most_tackles("20152016")
+    assert_equal "Portland Thorns FC", @season_stats.most_tackles("20162017")
+    assert_equal "Seattle Sounders FC", @season_stats.most_tackles("20172018")
   end
 
   def test_it_can_get_team_with_fewest_tackles
-    assert_equal "LA Galaxy", @season_stats.fewest_tackles("20122013")
-    assert_equal "Los Angeles FC", @season_stats.fewest_tackles("20132014")
-    assert_equal "New England Revolution", @season_stats.fewest_tackles("20142015")
-    assert_equal "Vancouver Whitecaps FC", @season_stats.fewest_tackles("20152016")
-    assert_equal "Atlanta United", @season_stats.fewest_tackles("20162017")
-    assert_equal "DC United", @season_stats.fewest_tackles("20172018")
+    assert_equal "Toronto FC", @season_stats.fewest_tackles("20122013")
+    assert_equal "Minnesota United FC", @season_stats.fewest_tackles("20132014")
+    assert_equal "New York Red Bulls", @season_stats.fewest_tackles("20142015")
+    assert_equal "Sky Blue FC", @season_stats.fewest_tackles("20152016")
+    assert_equal "Orlando City SC", @season_stats.fewest_tackles("20162017")
+    assert_equal "Sky Blue FC", @season_stats.fewest_tackles("20172018")
   end
-
 end
