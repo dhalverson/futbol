@@ -45,7 +45,19 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 40, @season_stats.game_teams_by_season("20122013").count
   end
 
+  def test_it_can_total_number_of_games_for_coaches_based_on_season
+    assert_instance_of Hash, @season_stats.total_games_per_coach("20132014")
+  end
+
+  def test_it_can_total_number_of_wins_for_coaches_based_on_season
+    assert_instance_of Hash, @season_stats.total_wins_per_coach("20132014")
+  end
+
   def test_it_can_get_winningest_coach
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20122013")
+    assert_equal "Claude Noel", @season_stats.winningest_coach("20132014")
+  end
+
+  def test_it_can_get_worst_coach
+    assert_equal "Mike Babcock", @season_stats.worst_coach("20132014")
   end
 end
