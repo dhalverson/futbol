@@ -237,5 +237,5 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2017021066,29,home,WIN,REG,John Tortorella,3,6,21,4,3,2,54.7,9,9
 2017021076,22,away,LOSS,REG,Todd McLellan,0,7,16,9,3,0,44.7,11,6
 2017021076,20,home,WIN,REG,Glen Gulutzan,1,8,23,11,2,0,55.3,7,11
-2017021124,22,away,WIN,REG,Todd McLellan,5,7,19,4,1,0,39.6,4,8
-2017021124,12,home,LOSS,REG,Bill Peters,3,8,24,2,2,1,60.4,13,17
+2017030241,28,away,LOSS,REG,Peter DeBoer,0,8,33,31,5,0,47.8,8,6
+2017030241,54,home,WIN,REG,Gerard Gallant,5,8,48,10,10,3,52.2,10,15
