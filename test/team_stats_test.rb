@@ -43,7 +43,12 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_returns_all_games_by_team_per_season
-    assert_instance_of Array, @team_stats.all_games("1")
+    assert_instance_of Hash, @team_stats.all_games_by_team_per_season("1")
+  end
+
+  def test_it_can_count_team_wins_per_season
+    assert_instance_of Hash, @team_stats.count_team_wins_per_season("1")
+    assert_equal "", @team_stats.count_team_wins_per_season("1")
   end
 
   def test_it_has_best_season
