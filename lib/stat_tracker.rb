@@ -126,4 +126,20 @@ class StatTracker
   def fewest_tackles(season)
     @season_stats.fewest_tackles(season)
   end
+
+  def team_info(team_id)
+    @team_stats.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @team_stats.best_season(team_id)
+  end
+  
+  def worst_season(team_id)
+    @team_stats.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_stats.average_win_percentage(team_id)
+  end
 end

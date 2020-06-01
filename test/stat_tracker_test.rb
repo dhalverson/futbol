@@ -145,6 +145,26 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_team_with_fewest_tackles
     assert_equal "Atlanta United", @stat_tracker.season_stats.fewest_tackles("20122013")
     assert_equal "Atlanta United", @stat_tracker.season_stats.fewest_tackles("20132014")
-    assert_equal "Atlanta United", @stat_tracker.season_stats.fewest_tackles("20142015")
+    assert_equal "Orlando City SC", @stat_tracker.season_stats.fewest_tackles("20142015")
+  end
+
+  def test_it_can_find_find_team_info
+    assert_equal "", @stat_tracker.team_stats.team_info("1")
+    assert_equal "", @stat_tracker.team_stats.team_info("2")
+  end
+
+  def test_it_can_find_best_season_for_team_id
+    assert_equal "", @stat_tracker.team_stats.best_season("1")
+    assert_equal "", @stat_tracker.team_stats.best_season("2")
+  end
+
+  def test_it_can_find_worst_season_for_team_id
+    assert_equal "", @stat_tracker.team_stats.worst_season("1")
+    assert_equal "", @stat_tracker.team_stats.worst_season("2")
+  end
+
+  def test_it_can_find_average_win_percentage_for_team_id
+    assert_equal "", @stat_tracker.team_stats.average_win_percentage("1")
+    assert_equal "", @stat_tracker.team_stats.average_win_percentage("2")
   end
 end
