@@ -69,12 +69,6 @@ end
     [worst_season_for_team_id].to_h.values.reduce
   end
 
-
-  #
-  # def worst_season(team_id)
-  #
-  # end
-
   def average_win_percentage(team_id)
     wins = 0
     team_id_games = all_game_teams_for_team(team_id)
