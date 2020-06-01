@@ -43,18 +43,20 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_it_returns_game_ids_for_team_win_results
-    assert_instance_of Array, @team_stats.game_id_for_team_wins("1", "WIN")
-    assert_equal ["2012020122", "2012020461", "2015020453"], @team_stats.game_id_for_team_wins("1", "WIN")
+    assert_instance_of Array, @team_stats.game_id_for_team_wins("1")
+    assert_equal ["2012020122", "2012020461", "2015020453"], @team_stats.game_id_for_team_wins("1")
   end
 
-  # def test_it_has_best_season_for_team_id
-  #   assert_equal "", @team_stats.best_season("1")
-  # end
+  def test_it_has_best_season_for_team_id
+    assert_equal "20122013", @team_stats.best_season("1")
+    assert_equal "20172018", @team_stats.best_season("20")
+  end
 
-  # def test_it_has_worst_season_for_team_id
-  #   assert_equal "", @team_stats.worst_season("1")
-  # end
-  #
+  def test_it_has_worst_season_for_team_id
+    assert_equal "20152016", @team_stats.worst_season("1")
+    assert_equal "20172018", @team_stats.worst_season("20")
+  end
+
   def test_it_has_average_win_percentage_of_all_games_for_team_id
     assert_equal 0.43, @team_stats.average_win_percentage("1")
     assert_equal 0.40, @team_stats.average_win_percentage("14")
