@@ -139,7 +139,7 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_find_team_with_most_tackles
     assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20122013")
     assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20132014")
-    assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20142015"
+    assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20142015")
   end
 
   def test_it_can_find_team_with_fewest_tackles
