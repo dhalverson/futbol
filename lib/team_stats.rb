@@ -22,48 +22,38 @@ class TeamStats
     }
   end
 
-  def all_games(team_id)
-    @games_collection.games.find_all do |game|
-      team_id == game.home_team_id || team_id == game.away_team_id
+  def all_game_teams_for_team(team_id)
+    @game_teams_collection.game_teams.find_all do |game_team|
+      game_team.team_id == team_id
     end
   end
 
-  def all_games_by_team_per_season(team_id)
-    all_games(team_id).group_by do |game|
-      game.season
-    end
+  def game_id_for_team_wins(team_id, win_result)
+  league_teams = all_game_teams_for_team(team_id).find_all do |game_team|
+    game_team.result == win_result
   end
+  league_teams.map do |game_team|
+    game_team.game_id
+  end
+end
 
-  def count_team_wins_per_season(team_id)
-    wins = Hash.new(0)
-    all_games(team_id).each do |game|
-      if team_id == (game.home_team_id && (game.home_goals > game.away_goals))
-        wins[game.team_id] += 1.0
-      elsif team_id == (game.away_team_id && (game.away_goals > game.home_goals))
-        wins[game.team_id] += 1.0
+  # def best_season(team_id)
+  #
+  # end
+  #
+  # def worst_season(team_id)
+  #
+  # end
+
+  def average_win_percentage(team_id)
+    wins = 0
+    team_id_games = all_game_teams_for_team(team_id)
+    total = team_id_games.count
+    team_id_games.each do |game|
+      if game.result == "WIN"
+        wins +=1
       end
     end
-    wins
-  end
-  end
-
-  def win_percentage_by_season
-    all_games_by_team_per_season(team_id).trasnform_values do |season|
-      wins = c
-  end
-
-
-# def high_low_key_return(given_hash, high_low)
-#   if high_low == :high
-#     given_hash.max_by {|k,v| v}[0]
-#   elsif high_low == :low
-#     given_hash.min_by {|k,v| v}[0]
-#   end
-# end
-#
-# end
-#
-  def best_season(team_id)
-
+    (wins / total.to_f).round(2)
   end
 end
