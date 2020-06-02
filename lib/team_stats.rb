@@ -14,11 +14,11 @@ class TeamStats
       team_id == team.team_id
     end
     hash = {
-      :team_id => team.team_id,
-      :franchiseid => team.franchiseid,
-      :teamname => team.teamname,
-      :abbreviation => team.abbreviation,
-      :link => team.link
+      "team_id" => team.team_id,
+      "franchise_id" => team.franchiseid,
+      "team_name" => team.teamname,
+      "abbreviation" => team.abbreviation,
+      "link" => team.link
     }
   end
 

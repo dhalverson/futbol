@@ -8,15 +8,17 @@ require_relative 'team_collection'
 require_relative 'game_stats'
 require_relative 'league_stats'
 require_relative 'season_stats'
+require_relative 'team_stats'
 
 class StatTracker
   attr_reader :games,
               :teams,
               :game_teams,
-              :game_stats,
               :locations,
+              :game_stats,
               :league_stats,
-              :season_stats
+              :season_stats,
+              :team_stats
 
   def self.from_csv(locations)
     games = locations[:games]
@@ -41,6 +43,7 @@ class StatTracker
       }
     @league_stats = LeagueStats.new(@locations)
     @season_stats = SeasonStats.new(@locations)
+    @team_stats = TeamStats.new(@locations)
   end
 
   def highest_total_score
@@ -134,7 +137,7 @@ class StatTracker
   def best_season(team_id)
     @team_stats.best_season(team_id)
   end
-  
+
   def worst_season(team_id)
     @team_stats.worst_season(team_id)
   end
