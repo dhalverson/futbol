@@ -1,10 +1,13 @@
 require './test/helper_test'
 require './lib/stat_tracker'
-require './lib/game_stats'
 require './lib/game_collection'
 require './lib/game_team_collection'
 require './lib/team_collection'
+require './lib/game_stats'
 require './lib/league_stats'
+require './lib/season_stats'
+require './lib/team_stats'
+require 'pry'
 
 class StatTrackerTest < Minitest::Test
 
@@ -20,6 +23,8 @@ class StatTrackerTest < Minitest::Test
     @game_stats = GameStats.new(@games_collection)
     @game_teams_collection = GameTeamCollection.new("./data/game_teams.csv")
     @league_stats = LeagueStats.new(@locations)
+    @season_stats = SeasonStats.new(@locations)
+    @team_stats = TeamStats.new(@locations)
   end
 
   def test_it_exists
@@ -108,5 +113,63 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_can_find_lowest_scoring_home_team
     assert_equal "Utah Royals FC", @stat_tracker.league_stats.lowest_scoring_home_team
+  end
+
+  def test_it_can_find_winningest_coach
+    assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20122013")
+    assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20132014")
+    assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20142015")
+  end
+
+  def test_it_can_find_worst_coach
+    assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20122013")
+    assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20132014")
+    assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20142015")
+  end
+
+  def test_it_can_find_most_accurate_team
+    assert_equal "Washington Spirit FC", @stat_tracker.season_stats.most_accurate_team("20122013")
+    assert_equal "Orlando City SC", @stat_tracker.season_stats.most_accurate_team("20132014")
+    assert_equal "LA Galaxy", @stat_tracker.season_stats.most_accurate_team("20142015")
+  end
+
+  def test_it_can_find_least_accurate_team
+    assert_equal "Sporting Kansas City", @stat_tracker.season_stats.least_accurate_team("20122013")
+    assert_equal "Philadelphia Union", @stat_tracker.season_stats.least_accurate_team("20132014")
+    assert_equal "DC United", @stat_tracker.season_stats.least_accurate_team("20142015")
+  end
+
+  def test_it_can_find_team_with_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20122013")
+    assert_equal "FC Cincinnati", @stat_tracker.season_stats.most_tackles("20132014")
+    assert_equal "Seattle Sounders FC", @stat_tracker.season_stats.most_tackles("20142015")
+  end
+
+  def test_it_can_find_team_with_fewest_tackles
+    assert_equal "Atlanta United", @stat_tracker.season_stats.fewest_tackles("20122013")
+    assert_equal "Atlanta United", @stat_tracker.season_stats.fewest_tackles("20132014")
+    assert_equal "Orlando City SC", @stat_tracker.season_stats.fewest_tackles("20142015")
+  end
+
+  def test_it_can_find_find_team_info
+    expected = {"team_id"=>"1", "franchise_id"=>"23", "team_name"=>"Atlanta United", "abbreviation"=>"ATL", "link"=>"/api/v1/teams/1"}
+    expected2 = {"team_id"=>"2", "franchise_id"=>"22", "team_name"=>"Seattle Sounders FC", "abbreviation"=>"SEA", "link"=>"/api/v1/teams/2"}
+    assert_equal expected, @stat_tracker.team_stats.team_info("1")
+    assert_equal expected2, @stat_tracker.team_stats.team_info("2")
+  end
+
+  def test_it_can_find_best_season_for_team_id
+    assert_equal "20172018", @stat_tracker.team_stats.best_season("1")
+    assert_equal "20142015", @stat_tracker.team_stats.best_season("2")
+  end
+
+  def test_it_can_find_worst_season_for_team_id
+    assert_equal "20122013", @stat_tracker.team_stats.worst_season("1")
+    assert_equal "20122013", @stat_tracker.team_stats.worst_season("2")
+  end
+
+  def test_it_can_find_average_win_percentage_for_team_id
+    assert_equal 0.36, @stat_tracker.team_stats.average_win_percentage("1")
+    assert_equal 0.36, @stat_tracker.team_stats.average_win_percentage("2")
   end
 end
