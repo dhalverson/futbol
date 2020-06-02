@@ -2,11 +2,12 @@ require 'csv'
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
-require_relative 'game_stats'
 require_relative 'game_collection'
 require_relative 'game_team_collection'
 require_relative 'team_collection'
+require_relative 'game_stats'
 require_relative 'league_stats'
+require_relative 'season_stats'
 
 class StatTracker
   attr_reader :games,
@@ -14,7 +15,8 @@ class StatTracker
               :game_teams,
               :game_stats,
               :locations,
-              :league_stats
+              :league_stats,
+              :season_stats
 
   def self.from_csv(locations)
     games = locations[:games]
@@ -38,6 +40,7 @@ class StatTracker
       game_teams_collection: @game_teams_collection
       }
     @league_stats = LeagueStats.new(@locations)
+    @season_stats = SeasonStats.new(@locations)
   end
 
   def highest_total_score
@@ -98,5 +101,45 @@ class StatTracker
 
   def lowest_scoring_home_team
     @league_stats.lowest_scoring_home_team
+  end
+
+  def winningest_coach(season)
+    @season_stats.winningest_coach(season)
+  end
+
+  def worst_coach(season)
+    @season_stats.worst_coach(season)
+  end
+
+  def most_accurate_team(season)
+    @season_stats.most_accurate_team(season)
+  end
+
+  def least_accurate_team(season)
+    @season_stats.least_accurate_team(season)
+  end
+
+  def most_tackles(season)
+    @season_stats.most_tackles(season)
+  end
+
+  def fewest_tackles(season)
+    @season_stats.fewest_tackles(season)
+  end
+
+  def team_info(team_id)
+    @team_stats.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @team_stats.best_season(team_id)
+  end
+  
+  def worst_season(team_id)
+    @team_stats.worst_season(team_id)
+  end
+
+  def average_win_percentage(team_id)
+    @team_stats.average_win_percentage(team_id)
   end
 end

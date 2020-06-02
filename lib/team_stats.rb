@@ -22,15 +22,62 @@ class TeamStats
     }
   end
 
-  def all_games(team_id)
-    @games_collection.games.find_all do |game|
-      (game.away_team_id || game.home_team_id) == team_id
+  def all_game_teams_for_team(team_id)
+    @game_teams_collection.game_teams.find_all do |game_team|
+      game_team.team_id == team_id
     end
   end
 
-  def all_games_by_team_per_season(team_id)
+  def game_id_for_team_wins(team_id)
+  league_teams = all_game_teams_for_team(team_id).find_all do |game_team|
+    game_team.result == "WIN"
   end
+  league_teams.map do |game_team|
+    game_team.game_id
+  end
+end
 
   def best_season(team_id)
+    wins = []
+    game_id_for_team_wins(team_id).each do |game_id|
+      @games_collection.games.each do |game|
+        if game.game_id == game_id
+          wins << game.season
+        end
+      end
+    end
+    season_wins = wins.group_by {|season| season}
+    best_season_for_team_id = season_wins.transform_values do |value|
+      value.count
+    end.invert.max
+    [best_season_for_team_id].to_h.values.reduce
+  end
+
+  def worst_season(team_id)
+    wins = []
+    game_id_for_team_wins(team_id).each do |game_id|
+      @games_collection.games.each do |game|
+        if game.game_id == game_id
+          wins << game.season
+        end
+      end
+    end
+    season_wins = wins.group_by {|season| season}
+    worst_season_for_team_id = season_wins.transform_values do |value|
+      value.count
+    end.invert.min
+    [worst_season_for_team_id].to_h.values.reduce
+  end
+
+  def average_win_percentage(team_id)
+    wins = 0
+    team_id_games = all_game_teams_for_team(team_id)
+    total = team_id_games.count
+    team_id_games.each do |game_team|
+      if game_team.result == "WIN"
+        wins +=1
+      end
+    end
+    (wins / total.to_f).round(2)
   end
 end
