@@ -58,6 +58,17 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 40, @season_stats.game_teams_by_season("20172018").count
   end
 
+  def test_it_can_get_games_by_year
+    assert_instance_of Array, @season_stats.games_by_year("20132014")
+    assert_instance_of GameTeam, @season_stats.games_by_year("20132014")[0]
+    assert_equal 40, @season_stats.games_by_year("20132014").count
+  end
+
+  def test_it_can_get_coach_games_by_season
+    assert_instance_of Hash, @season_stats.coach_games("20132014")
+    assert_equal 20, @season_stats.coach_games("20132014").count
+  end
+
   def test_it_can_get_winningest_coach
     assert_equal "Lindy Ruff", @season_stats.winningest_coach("20122013")
     assert_equal "Claude Noel", @season_stats.winningest_coach("20132014")

@@ -22,13 +22,13 @@ class LeagueStats
       game_team.team_id
     end
     ids.map do |game_team|
-      game_team.team_id.to_i
+      game_team.team_id
     end.uniq
   end
 
   def games_sorted_by_team_id(team_id)
     @game_teams_collection.game_teams.find_all do |game_team|
-      game_team.team_id.to_i == team_id
+      game_team.team_id == team_id
     end
   end
 

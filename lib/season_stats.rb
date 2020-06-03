@@ -31,16 +31,22 @@ class SeasonStats
     game_teams
   end
 
+  def games_by_year(season)
+    year = season[0..3]
+    season_games = @game_teams_collection.game_teams.select do |game|
+      game.game_id.start_with?(year)
+    end
+  end
+
+  def coach_games(season)
+    games_by_year(season).group_by do |game|
+      game.head_coach
+    end
+  end
+
   def winningest_coach(season)
-  year = season[0..3]
-  season_games = @game_teams_collection.game_teams.select do |game|
-    game.game_id.start_with?(year)
-  end
-  coach_games = season_games.group_by do |game|
-    game.head_coach
-  end
   wins_to_games  = Hash.new(0)
-  coach_games.each do |coach, games|
+  coach_games(season).each do |coach, games|
     wins = games.find_all do |game|
       game.result == "WIN"
     end
@@ -53,15 +59,8 @@ class SeasonStats
   end
 
   def worst_coach(season)
-    year = season[0..3]
-    season_games = @game_teams_collection.game_teams.select do |game|
-      game.game_id.start_with?(year)
-    end
-    coach_games = season_games.group_by do |game|
-      game.head_coach
-    end
     wins_to_games  = Hash.new(0)
-    coach_games.each do |coach, games|
+    coach_games(season).each do |coach, games|
       wins = games.find_all do |game|
         game.result == "WIN"
       end
@@ -101,11 +100,7 @@ end
   end
 
   def most_tackles(season)
-    year = season[0..3]
-    season_games = @game_teams_collection.game_teams.select do |game|
-      game.game_id.start_with?(year)
-    end
-    by_teams = season_games.group_by { |team| team.team_id }
+    by_teams = games_by_year(season).group_by { |team| team.team_id }
     by_teams.map do |team_id, games|
       by_teams[team_id] = games.sum { |game| game.tackles.to_i }
     end
@@ -116,11 +111,7 @@ end
   end
 
   def fewest_tackles(season)
-    year = season[0..3]
-    season_games = @game_teams_collection.game_teams.select do |game|
-      game.game_id.start_with?(year)
-    end
-    by_teams = season_games.group_by { |team| team.team_id }
+    by_teams = games_by_year(season).group_by { |team| team.team_id }
     by_teams.map do |team_id, games|
       by_teams[team_id] = games.sum { |game| game.tackles.to_i }
     end

@@ -42,21 +42,22 @@ class LeagueStatsTest < Minitest::Test
   end
 
   def test_it_can_sort_games_by_team_id
-    assert_equal 12, @league_stats.games_sorted_by_team_id(52).count
-    assert_equal 7, @league_stats.games_sorted_by_team_id(22).count
+    assert_equal 12, @league_stats.games_sorted_by_team_id("52").count
+    assert_equal 7, @league_stats.games_sorted_by_team_id("22").count
   end
 
   def test_it_can_total_goals_by_team_id
-    assert_equal 20, @league_stats.total_goals_by_team_id(5)
-    assert_equal 28, @league_stats.total_goals_by_team_id(24)
+    assert_equal 20, @league_stats.total_goals_by_team_id("5")
+    assert_equal 28, @league_stats.total_goals_by_team_id("24")
   end
 
   def test_it_can_average_goals_by_team_id
-    assert_equal 1.86, @league_stats.average_goals_by_team_id(1)
-    assert_equal 2.25, @league_stats.average_goals_by_team_id(18)
+    assert_equal 1.86, @league_stats.average_goals_by_team_id("1")
+    assert_equal 2.25, @league_stats.average_goals_by_team_id("18")
   end
 
   def test_it_can_find_best_offense
+    
     assert_equal "Reign FC", @league_stats.best_offense
   end
 

@@ -17,7 +17,7 @@ class StatTrackerTest < Minitest::Test
       teams: './data/teams.csv',
       game_teams: './data/game_teams.csv'
       }
-
+ 
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
