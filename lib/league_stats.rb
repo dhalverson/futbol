@@ -1,4 +1,8 @@
+require_relative './mathable'
+
 class LeagueStats
+  include Mathable
+
   attr_reader :games_collection,
               :teams_collection,
               :game_teams_collection
@@ -67,7 +71,7 @@ class LeagueStats
       sum_goals = games.sum do |game|
         game.goals.to_f
       end
-      (sum_goals / games.length).round(2)
+      average(sum_goals, games.length)
     end
     highest_average = average.max_by do |team_id, average|
       average
@@ -88,7 +92,7 @@ class LeagueStats
       sum_goals = games.sum do |game|
         game.goals.to_f
       end
-      (sum_goals / games.length).round(2)
+    average(sum_goals, games.length)
     end
     highest_average = average.max_by do |team_id, average|
       average

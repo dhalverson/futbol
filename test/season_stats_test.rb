@@ -15,13 +15,13 @@ class SeasonStatsTest < Minitest::Test
     teams_collection = TeamCollection.new("./data/teams.csv")
     game_teams_collection = GameTeamCollection.new("./test/fixtures/game_teams_truncated.csv")
 
-    locations = {
+    collections = {
       games_collection: games_collection,
       teams_collection: teams_collection,
       game_teams_collection: game_teams_collection
       }
 
-    @season_stats = SeasonStats.new(locations)
+    @season_stats = SeasonStats.new(collections)
   end
 
   def test_it_exists
@@ -56,22 +56,6 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 40, @season_stats.game_teams_by_season("20152016").count
     assert_equal 40, @season_stats.game_teams_by_season("20162017").count
     assert_equal 40, @season_stats.game_teams_by_season("20172018").count
-  end
-
-  def test_it_can_total_number_of_games_for_coaches_based_on_season
-    assert_instance_of Hash, @season_stats.total_games_per_coach("20122013")
-    assert_instance_of Hash, @season_stats.total_games_per_coach("20132014")
-    assert_instance_of Hash, @season_stats.total_games_per_coach("20142015")
-    assert_instance_of Hash, @season_stats.total_games_per_coach("20152016")
-    assert_instance_of Hash, @season_stats.total_games_per_coach("20162017")
-  end
-
-  def test_it_can_total_number_of_wins_for_coaches_based_on_season
-    assert_instance_of Hash, @season_stats.total_wins_per_coach("20122013")
-    assert_instance_of Hash, @season_stats.total_wins_per_coach("20132014")
-    assert_instance_of Hash, @season_stats.total_wins_per_coach("20142015")
-    assert_instance_of Hash, @season_stats.total_wins_per_coach("20152016")
-    assert_instance_of Hash, @season_stats.total_wins_per_coach("20162017")
   end
 
   def test_it_can_get_winningest_coach

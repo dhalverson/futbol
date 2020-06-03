@@ -19,12 +19,6 @@ class StatTrackerTest < Minitest::Test
       }
 
     @stat_tracker = StatTracker.from_csv(@locations)
-    @games_collection = GameCollection.new("./data/games.csv")
-    @game_stats = GameStats.new(@games_collection)
-    @game_teams_collection = GameTeamCollection.new("./data/game_teams.csv")
-    @league_stats = LeagueStats.new(@locations)
-    @season_stats = SeasonStats.new(@locations)
-    @team_stats = TeamStats.new(@locations)
   end
 
   def test_it_exists
@@ -116,15 +110,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_find_winningest_coach
-    assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20122013")
+    assert_equal "Dan Lacroix", @stat_tracker.season_stats.winningest_coach("20122013")
     assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20132014")
-    assert_equal "Claude Julien", @stat_tracker.season_stats.winningest_coach("20142015")
+    assert_equal "Alain Vigneault", @stat_tracker.season_stats.winningest_coach("20142015")
   end
 
   def test_it_can_find_worst_coach
-    assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20122013")
+    assert_equal "Martin Raymond", @stat_tracker.season_stats.worst_coach("20122013")
     assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20132014")
-    assert_equal "Peter Laviolette", @stat_tracker.season_stats.worst_coach("20142015")
+    assert_equal "Ted Nolan", @stat_tracker.season_stats.worst_coach("20142015")
   end
 
   def test_it_can_find_most_accurate_team
