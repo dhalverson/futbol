@@ -15,13 +15,13 @@ class SeasonStatsTest < Minitest::Test
     teams_collection = TeamCollection.new("./data/teams.csv")
     game_teams_collection = GameTeamCollection.new("./test/fixtures/game_teams_truncated.csv")
 
-    locations = {
+    collections = {
       games_collection: games_collection,
       teams_collection: teams_collection,
       game_teams_collection: game_teams_collection
       }
 
-    @season_stats = SeasonStats.new(locations)
+    @season_stats = SeasonStats.new(collections)
   end
 
   def test_it_exists
