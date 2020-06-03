@@ -1,4 +1,7 @@
+require_relative './mathable'
+
 class TeamStats
+  include Mathable
   attr_reader :games_collection,
               :teams_collection,
               :game_teams_collection
@@ -78,6 +81,6 @@ end
         wins +=1
       end
     end
-    (wins / total.to_f).round(2)
+    average(wins.to_f, total)
   end
 end
