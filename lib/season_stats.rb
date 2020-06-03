@@ -7,7 +7,6 @@ class SeasonStats
     @games_collection = collections[:games_collection]
     @teams_collection = collections[:teams_collection]
     @game_teams_collection = collections[:game_teams_collection]
-
   end
 
   def games_by_season(season)
@@ -32,26 +31,6 @@ class SeasonStats
     game_teams
   end
 
-  def total_games_per_coach(season)
-    total = Hash.new(0)
-    game_teams_by_season(season).each do |game_team|
-      total[game_team.head_coach] += 1.0
-    end
-    total
-  end
-
-  def total_wins_per_coach(season)
-    wins = Hash.new(0)
-    game_teams_by_season(season).each do |game_team|
-      if game_team.result == "LOSS" || game_team.result == "TIE"
-        wins[game_team.head_coach] += 0.0
-      elsif game_team.result == "WIN"
-        wins[game_team.head_coach] += 1.0
-      end
-    end
-    wins
-  end
-
   def winningest_coach(season)
   year = season[0..3]
   season_games = @game_teams_collection.game_teams.select do |game|
@@ -65,24 +44,13 @@ class SeasonStats
     wins = games.find_all do |game|
       game.result == "WIN"
     end
-    wins_to_games[coach] = wins.count / games.count.to_f
+  wins_to_games[coach] = wins.count / games.count.to_f
   end
   winning = wins_to_games.max_by do |coach, ratio|
     ratio
   end
   winning[0]
-end
-
-  # total_games_per_coach(season).each do |coach_total, total_games|
-  #   total_wins_per_coach(season).each do |coach_wins, total_wins|
-  #     if coach_total == coach_wins
-  #       wins_to_total_games[coach_wins] = (total_wins / total_games.to_f)
-  #     end
-  # end
-  # winning = wins_to_total_games.max_by do |coach, ratio|
-  #   ratio
-  # end
-  # winning[0]
+  end
 
   def worst_coach(season)
     year = season[0..3]
