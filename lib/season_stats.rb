@@ -63,14 +63,7 @@ class SeasonStats
   end
 
   def worst_coach(season)
-    wins_to_games  = Hash.new(0)
-    coach_games(season).each do |coach, games|
-      wins = games.find_all do |game|
-        game.result == "WIN"
-      end
-      wins_to_games[coach] = wins.count / games.count.to_f
-    end
-    losing = wins_to_games.min_by do |coach, ratio|
+    losing = wins_to_games(season).min_by do |coach, ratio|
       ratio
     end
     losing[0]
