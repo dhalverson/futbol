@@ -39,7 +39,7 @@ class LeagueStats
   end
 
   def average_goals_by_team_id(team_id)
-      (total_goals_by_team_id(team_id).to_f / games_sorted_by_team_id(team_id).count).round(2)
+    average(total_goals_by_team_id(team_id).to_f, games_sorted_by_team_id(team_id).count)
   end
 
   def best_offense
