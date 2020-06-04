@@ -1,4 +1,8 @@
+require_relative './mathable'
+
 class GameStats
+  include Mathable
+
   attr_reader :games_collection
 
   def initialize(games_collection)
@@ -23,21 +27,21 @@ class GameStats
     home_wins = @games_collection.games.count do |game|
       game.home_goals > game.away_goals
     end
-    (home_wins.to_f / @games_collection.games.count).round(2)
+    average(home_wins.to_f, @games_collection.games.count)
   end
 
   def percentage_visitor_wins
     visitor_wins = @games_collection.games.count do |game|
       game.home_goals < game.away_goals
     end
-    (visitor_wins.to_f / @games_collection.games.count).round(2)
+    average(visitor_wins.to_f, @games_collection.games.count)
   end
 
   def percentage_ties
     ties = @games_collection.games.count do |game|
       game.home_goals == game.away_goals
     end
-    (ties.to_f / @games_collection.games.count).round(2)
+    average(ties.to_f, @games_collection.games.count)
   end
 
   def games_by_season
@@ -60,15 +64,15 @@ class GameStats
     game_average = total_score.sum do |score|
       score
     end
-      (game_average.to_f / @games_collection.games.count).round(2)
+    average(game_average.to_f, @games_collection.games.count)
   end
 
   def average_goals_by_season
     games_by_season.transform_values do |games|
       average = games.sum do |game|
-        (game.home_goals + game.away_goals).to_f 
+        (game.home_goals + game.away_goals).to_f
       end
-      (average / games.count).round(2)
+      average(average, games.count)
     end
   end
 end
