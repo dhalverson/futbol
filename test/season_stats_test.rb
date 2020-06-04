@@ -7,6 +7,7 @@ require './lib/team_collection'
 require './lib/game_team'
 require './lib/game_team_collection'
 require './lib/season_stats'
+require 'mocha/minitest'
 require 'pry'
 
 class SeasonStatsTest < Minitest::Test
@@ -69,22 +70,20 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 20, @season_stats.coach_games("20132014").count
   end
 
+  def test_it_can_get_wins_to_games
+    assert_instance_of Hash, @season_stats.wins_to_games("20122013")
+  end
+
   def test_it_can_get_winningest_coach
-    assert_equal "Lindy Ruff", @season_stats.winningest_coach("20122013")
-    assert_equal "Claude Noel", @season_stats.winningest_coach("20132014")
-    assert_equal "Paul Maurice", @season_stats.winningest_coach("20142015")
-    assert_equal "Bill Peters", @season_stats.winningest_coach("20152016")
-    assert_equal "Joel Quenneville", @season_stats.winningest_coach("20162017")
-    assert_equal "Rick Tocchet", @season_stats.winningest_coach("20172018")
+    result = {"Harry" => 0.5, "Luna" => 0.9, "Ron" => 0.85}
+    @season_stats.stubs(:wins_to_games).returns(result)
+    assert_equal "Luna", @season_stats.winningest_coach("20122013")
   end
 
   def test_it_can_get_worst_coach
-    assert_equal "Todd Richards", @season_stats.worst_coach("20122013")
-    assert_equal "Mike Babcock", @season_stats.worst_coach("20132014")
-    assert_equal "Gerard Gallant", @season_stats.worst_coach("20142015")
-    assert_equal "Peter Laviolette", @season_stats.worst_coach("20152016")
-    assert_equal "Bill Peters", @season_stats.worst_coach("20162017")
-    assert_equal "Bill Peters", @season_stats.worst_coach("20172018")
+    result = {"Harry" => 0.5, "Luna" => 0.9, "Ron" => 0.85}
+    @season_stats.stubs(:wins_to_games).returns(result)
+    assert_equal "Harry", @season_stats.worst_coach("20122013")
   end
 
   def test_accuracy_by_game_team
