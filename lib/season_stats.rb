@@ -44,15 +44,19 @@ class SeasonStats
     end
   end
 
-  def winningest_coach(season)
-  wins_to_games  = Hash.new(0)
-  coach_games(season).each do |coach, games|
-    wins = games.find_all do |game|
-      game.result == "WIN"
+  def wins_to_games(season)
+    wins_to_games  = Hash.new(0)
+    coach_games(season).each do |coach, games|
+      wins = games.find_all do |game|
+        game.result == "WIN"
+      end
+    wins_to_games[coach] = wins.count / games.count.to_f
     end
-  wins_to_games[coach] = wins.count / games.count.to_f
+    wins_to_games
   end
-  winning = wins_to_games.max_by do |coach, ratio|
+
+  def winningest_coach(season)
+  winning = wins_to_games(season).max_by do |coach, ratio|
     ratio
   end
   winning[0]

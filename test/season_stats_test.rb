@@ -69,6 +69,10 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 20, @season_stats.coach_games("20132014").count
   end
 
+  def test_it_can_get_wins_to_games
+    assert_instance_of Hash, @season_stats.wins_to_games("20122013")
+  end
+
   def test_it_can_get_winningest_coach
     assert_equal "Lindy Ruff", @season_stats.winningest_coach("20122013")
     assert_equal "Claude Noel", @season_stats.winningest_coach("20132014")
