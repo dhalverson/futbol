@@ -1,4 +1,4 @@
-Futbol Project
+Futbol Project - Norma Lopez, Cam C, Dan Halverson
 
 Design Strategy
 
